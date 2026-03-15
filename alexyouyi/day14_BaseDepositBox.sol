@@ -10,8 +10,9 @@ abstract contract BaseDepositBox is IDepositBox{
     event OwnershipTransferred(address indexed previousOwner, address indexed newOwner);
     event SecretStored(string secret, uint256 timestamp);
 
-    constructor() {
-        owner = msg.sender;
+    constructor(address initialOwner) {
+        require(initialOwner != address(0), "Initial owner cannot be the zero address");
+        owner = initialOwner;
         depositTime = block.timestamp;
     }
 

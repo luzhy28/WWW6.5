@@ -4,6 +4,9 @@ import "./day14_BaseDepositBox.sol";
 
 contract PremiumDepositBox is BaseDepositBox {
 
+    constructor(address initialOwner) BaseDepositBox(initialOwner) {
+    }
+
     string private metadata;
     event MetadataUpdated(address indexed owner);
 

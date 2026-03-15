@@ -14,21 +14,21 @@ contract VaultManager{
     event BoxNamed(address indexed boxAddress, string name);
 
     function createBasicBox() external returns (address){
-        BasicDepositBox newBox = new BasicDepositBox();
+        BasicDepositBox newBox = new BasicDepositBox(msg.sender);
         userDepositBoxes[msg.sender].push(address(newBox));
         emit BoxCreated(msg.sender, address(newBox), "Basic");
         return address(newBox);
     }
 
     function createPremiumBox() external returns (address){
-        PremiumDepositBox newBox = new PremiumDepositBox();
+        PremiumDepositBox newBox = new PremiumDepositBox(msg.sender);
         userDepositBoxes[msg.sender].push(address(newBox));
         emit BoxCreated(msg.sender, address(newBox), "Premium");
         return address(newBox);
     }
     
     function createTimeLockedBox(uint256 lockDuration) external returns (address){
-        TimeLockedDepositBox newBox = new TimeLockedDepositBox(lockDuration);
+        TimeLockedDepositBox newBox = new TimeLockedDepositBox(msg.sender, lockDuration);
         userDepositBoxes[msg.sender].push(address(newBox));
         emit BoxCreated(msg.sender, address(newBox), "TimeLocked");
         return address(newBox);
